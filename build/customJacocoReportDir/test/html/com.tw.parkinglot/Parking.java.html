@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Parking.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jacocoDemo</a> &gt; <a href="index.source.html" class="el_package">com.tw.parkinglot</a> &gt; <span class="el_source">Parking.java</span></div><h1>Parking.java</h1><pre class="source lang-java linenums">package com.tw.parkinglot;
+
+import com.tw.pojo.Car;
+import com.tw.pojo.ParkingLot;
+import com.tw.pojo.ParkingTicket;
+import com.tw.pojo.User;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+<span class="nc" id="L12">public class Parking {</span>
+
+    /**
+     * 一个停车场的停车方法
+     *
+     * @param parkingLot 停车场
+     * @param users      待停车的用户
+     * @return 票
+     */
+    public List&lt;ParkingTicket&gt; parking(ParkingLot parkingLot, List&lt;User&gt; users) {
+<span class="nc" id="L22">        int usersNum = users.size(); //当前等待停车的用户数量</span>
+<span class="nc" id="L23">        int prakNum = parkingLot.getpNumber() - parkingLot.getCarList().size(); //当前停车场剩余车位数 = 停车场的车位数-停车场已有车数量</span>
+<span class="nc" id="L24">        ArrayList&lt;ParkingTicket&gt; ticketList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (parkingLot.getCarList().size() &gt;= parkingLot.getpNumber()) {</span>
+<span class="nc" id="L26">            throw new RuntimeException(&quot;停车场已满，无法停车&quot;);</span>
+        } else {
+<span class="nc bnc" id="L28" title="All 2 branches missed.">            for (int i = 0; i &lt; usersNum; i++) {</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">                if (prakNum &gt; 0) {</span>
+<span class="nc" id="L30">                    ParkingTicket parkingTicket = new ParkingTicket(100 + users.get(i).getUid(), users.get(i).getName(), users.get(i).getCid(), parkingLot.getPid());</span>
+<span class="nc" id="L31">                    ticketList.add(parkingTicket);</span>
+<span class="nc" id="L32">                    prakNum--;</span>
+
+                    //停车后就需要往停车场新增一辆车的信息，以模拟取车的时候业务
+<span class="nc" id="L35">                    List&lt;Car&gt; carList = parkingLot.getCarList();</span>
+<span class="nc" id="L36">                    carList.add(new Car(users.get(i).getCid(), users.get(i).getcName()));</span>
+<span class="nc" id="L37">                    parkingLot.setCarList(carList);</span>
+                }
+            }
+<span class="nc" id="L40">            return ticketList;</span>
+        }
+    }
+
+    /**
+     * 两个停车场的停车方法
+     *
+     * @param parkingLot1 停车场1
+     * @param parkingLot2 停车场2
+     * @param users       待停车的用户
+     * @return 票
+     */
+    public List&lt;ParkingTicket&gt; parking(ParkingLot parkingLot1, ParkingLot parkingLot2, List&lt;User&gt; users) {
+<span class="nc" id="L53">        int usersNum = users.size(); //当前等待停车的用户数量</span>
+<span class="nc" id="L54">        int prakNum1 = parkingLot1.getpNumber() - parkingLot1.getCarList().size(); //当前停车场1剩余车位数 = 停车场的车位数-停车场已有车数量</span>
+<span class="nc" id="L55">        int prakNum2 = parkingLot2.getpNumber() - parkingLot2.getCarList().size(); //当前停车场2剩余车位数 = 停车场的车位数-停车场已有车数量</span>
+
+<span class="nc" id="L57">        ArrayList&lt;ParkingTicket&gt; ticketList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L59" title="All 4 branches missed.">        if (prakNum1 &gt; prakNum2 &amp;&amp; prakNum1 &gt;= usersNum) { //第一个空车位比第二个多</span>
+<span class="nc" id="L60">            return parking(parkingLot1, users);</span>
+<span class="nc bnc" id="L61" title="All 4 branches missed.">        } else if (prakNum2 &gt; prakNum1 &amp;&amp; prakNum2 &gt;= usersNum) { //第二个空车位比第一个多</span>
+<span class="nc" id="L62">            return parking(parkingLot2, users);</span>
+        } else { //有两个停车场，两个停车位一样多且足够
+            boolean flag;
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            for (int i = 0; i &lt; usersNum; i++) {</span>
+<span class="nc" id="L66">                flag = true; //增加标识位，去解决bug</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                if (parkingLot2.getCarList().size() &gt;= parkingLot2.getpNumber()) {</span>
+<span class="nc" id="L68">                    throw new RuntimeException(&quot;停车场已满，无法停车&quot;);</span>
+                }
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                if (prakNum1 &gt; 0) { //当第一个停车场的剩余车位数大于零，就停到第一个停车场中</span>
+<span class="nc" id="L71">                    ParkingTicket parkingTicket = new ParkingTicket(100 + users.get(i).getUid(), users.get(i).getName(), users.get(i).getCid(), parkingLot1.getPid());</span>
+<span class="nc" id="L72">                    ticketList.add(parkingTicket);</span>
+<span class="nc" id="L73">                    prakNum1--;</span>
+
+                    //停车后就需要往停车场新增一辆车的信息，以模拟取车的时候业务
+<span class="nc" id="L76">                    List&lt;Car&gt; carList = parkingLot1.getCarList();</span>
+<span class="nc" id="L77">                    carList.add(new Car(users.get(i).getCid(), users.get(i).getcName()));</span>
+<span class="nc" id="L78">                    parkingLot1.setCarList(carList);</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                    if (prakNum1 == 0) {</span>
+<span class="nc" id="L80">                        flag = false;</span>
+                    }
+                }
+<span class="nc bnc" id="L83" title="All 6 branches missed.">                if (flag == true &amp;&amp; prakNum1 == 0 &amp;&amp; prakNum2 &gt; 0) { //当第一个停车场的剩余车位数为于零，就停到第二个停车场中</span>
+<span class="nc" id="L84">                    ParkingTicket parkingTicket = new ParkingTicket(100 + users.get(i).getUid(), users.get(i).getName(), users.get(i).getCid(), parkingLot2.getPid());</span>
+<span class="nc" id="L85">                    ticketList.add(parkingTicket);</span>
+<span class="nc" id="L86">                    prakNum2--;</span>
+
+                    //停车后就需要往停车场新增一辆车的信息，以模拟取车的时候业务
+<span class="nc" id="L89">                    List&lt;Car&gt; carList = parkingLot2.getCarList();</span>
+<span class="nc" id="L90">                    carList.add(new Car(users.get(i).getCid(), users.get(i).getcName()));</span>
+<span class="nc" id="L91">                    parkingLot2.setCarList(carList);</span>
+                }
+            }
+<span class="nc" id="L94">            return ticketList;</span>
+        }
+    }
+
+    //错误逻辑：不能用用户保存的cid去和车的cid进行比较，而应该是车票和票池去比较
+    public Car pickUp(ParkingLot parkingLot, List&lt;ParkingTicket&gt; originTickets, ParkingTicket ticket, User user) {
+<span class="nc" id="L100">        List&lt;Car&gt; carList = parkingLot.getCarList();</span>
+<span class="nc" id="L101">        Iterator&lt;Car&gt; iterator = carList.iterator();</span>
+<span class="nc bnc" id="L102" title="All 4 branches missed.">        if (originTickets.isEmpty() || !originTickets.contains(ticket)) {</span>
+<span class="nc" id="L103">            throw new RuntimeException(&quot;车票无效，取车失败！&quot;);</span>
+        }
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        while (iterator.hasNext()) {</span>
+<span class="nc" id="L106">            Car car = iterator.next();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">            if (car.getCid().equals(user.getCid())) {</span>
+<span class="nc" id="L108">                carList.remove(car);</span>
+<span class="nc" id="L109">                break;</span>
+            }
+<span class="nc" id="L111">        }</span>
+<span class="nc" id="L112">        originTickets.remove(ticket);</span>
+<span class="nc" id="L113">        return new Car(user.getCid(), user.getcName());</span>
+    }
+
+    /**
+     * 一个停车场的取车方法
+     *
+     * @param parkingLot    停车场
+     * @param originTickets 当前停车场存在的车的原始票池
+     * @param ticket        取车需要的票
+     * @return 返回你的车
+     * 重构逻辑：
+     * 1、根据票池来去和票做判断
+     * 2、换一个数据结构，使用map&lt;&gt;,key为票，然后value是车，这样就能克服
+     * 3、进行方法重构，省去用户的加入
+     */
+    public Car pickUp(ParkingLot parkingLot, List&lt;ParkingTicket&gt; originTickets, ParkingTicket ticket) {
+<span class="nc" id="L129">        List&lt;Car&gt; carList = parkingLot.getCarList();</span>
+<span class="nc bnc" id="L130" title="All 4 branches missed.">        if (originTickets.isEmpty() || !originTickets.contains(ticket)) {</span>
+<span class="nc" id="L131">            throw new RuntimeException(&quot;车票无效，取车失败！&quot;);</span>
+        }
+        // car id = ticket id
+<span class="nc" id="L134">        Car car1 = carList.stream().filter(car -&gt; car.getCid().equals(ticket.getCid())).findFirst().get();</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        ParkingTicket parkingTicket = originTickets.stream().filter(tickets -&gt; tickets.getCid() == ticket.getCid()).findFirst().get();</span>
+<span class="nc" id="L136">        originTickets.remove(ticket);</span>
+<span class="nc" id="L137">        return car1;</span>
+    }
+
+    /**
+     * 两个停车场的取车方法
+     *
+     * @param parkingLot1   停车场1
+     * @param parkingLot2   停车场2
+     * @param originTickets 当前停车场存在的车的原始票池
+     * @param ticket        取车需要的票
+     * @return 返回你的车
+     */
+    public Car pickUp(ParkingLot parkingLot1, ParkingLot parkingLot2, List&lt;ParkingTicket&gt; originTickets, ParkingTicket ticket) {
+<span class="nc" id="L150">        List&lt;Car&gt; carList1 = parkingLot1.getCarList();</span>
+<span class="nc" id="L151">        List&lt;Car&gt; carList2 = parkingLot2.getCarList();</span>
+
+<span class="nc bnc" id="L153" title="All 4 branches missed.">        if (originTickets.isEmpty() || !originTickets.contains(ticket)) {</span>
+<span class="nc" id="L154">            throw new RuntimeException(&quot;车票无效，取车失败！&quot;);</span>
+        }
+        // car id = ticket id ??
+<span class="nc" id="L157">        boolean present1 = carList1.stream().filter(car -&gt; car.getCid().equals(ticket.getCid())).findAny().isPresent();</span>
+<span class="nc" id="L158">        boolean present2 = carList2.stream().filter(car -&gt; car.getCid().equals(ticket.getCid())).findAny().isPresent();</span>
+
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        ParkingTicket parkingTicket = originTickets.stream().filter(tickets -&gt; tickets.getCid() == ticket.getCid()).findFirst().get();</span>
+<span class="nc" id="L161">        originTickets.remove(parkingTicket);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        return present1 == true ? carList1.stream().filter(car -&gt; car.getCid().equals(ticket.getCid())).findFirst().get()</span>
+<span class="nc" id="L163">                : carList2.stream().filter(car -&gt; car.getCid().equals(ticket.getCid())).findFirst().get();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

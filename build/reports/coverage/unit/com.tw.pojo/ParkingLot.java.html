@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParkingLot.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jacocoDemo</a> &gt; <a href="index.source.html" class="el_package">com.tw.pojo</a> &gt; <span class="el_source">ParkingLot.java</span></div><h1>ParkingLot.java</h1><pre class="source lang-java linenums">package com.tw.pojo;
+
+import java.util.List;
+
+/**
+ * 停车场类
+ */
+public class ParkingLot {
+
+    private Integer pid;
+    private Integer pNumber;
+    private List&lt;Car&gt; carList;
+
+<span class="nc" id="L14">    public ParkingLot(Integer pid, Integer pNumber, List&lt;Car&gt; carList) {</span>
+<span class="nc" id="L15">        this.pid = pid;</span>
+<span class="nc" id="L16">        this.pNumber = pNumber;</span>
+<span class="nc" id="L17">        this.carList = carList;</span>
+<span class="nc" id="L18">    }</span>
+
+    public Integer getPid() {
+<span class="nc" id="L21">        return pid;</span>
+    }
+
+    public void setPid(Integer pid) {
+<span class="nc" id="L25">        this.pid = pid;</span>
+<span class="nc" id="L26">    }</span>
+
+    public Integer getpNumber() {
+<span class="nc" id="L29">        return pNumber;</span>
+    }
+
+    public void setpNumber(Integer pNumber) {
+<span class="nc" id="L33">        this.pNumber = pNumber;</span>
+<span class="nc" id="L34">    }</span>
+
+    public List&lt;Car&gt; getCarList() {
+<span class="nc" id="L37">        return carList;</span>
+    }
+
+    public void setCarList(List&lt;Car&gt; carList) {
+<span class="nc" id="L41">        this.carList = carList;</span>
+<span class="nc" id="L42">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L46">        return &quot;ParkingLot{&quot; +</span>
+                &quot;pid=&quot; + pid +
+                &quot;, pNumber=&quot; + pNumber +
+                &quot;, carList=&quot; + carList +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

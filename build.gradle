@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+apply plugin: 'jacoco'
+
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+}
+
+dependencies {
+    implementation 'junit:junit:4.13.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    reports {
+        csv.enabled true
+        xml.enabled false
+        html.enabled true
+        csv.destination file("build/reports/coverage/unit/jacowcowTestReport.csv")
+        html.destination file("build/reports/coverage/unit")
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}

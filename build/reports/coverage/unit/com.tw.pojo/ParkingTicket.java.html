@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParkingTicket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jacocoDemo</a> &gt; <a href="index.source.html" class="el_package">com.tw.pojo</a> &gt; <span class="el_source">ParkingTicket.java</span></div><h1>ParkingTicket.java</h1><pre class="source lang-java linenums">package com.tw.pojo;
+
+/**
+ * 停车票类
+ */
+public class ParkingTicket {
+
+    private int tid;
+    private String tName; //对应着用户的名字
+    private int cid; //对应车的id
+    private int pid; //对应停车场的id
+
+<span class="nc" id="L13">    public ParkingTicket(int tid, String tName, int cid, int pid) {</span>
+<span class="nc" id="L14">        this.tid = tid;</span>
+<span class="nc" id="L15">        this.tName = tName;</span>
+<span class="nc" id="L16">        this.cid = cid;</span>
+<span class="nc" id="L17">        this.pid = pid;</span>
+<span class="nc" id="L18">    }</span>
+
+<span class="nc" id="L20">    public ParkingTicket() {</span>
+<span class="nc" id="L21">    }</span>
+
+    public int getTid() {
+<span class="nc" id="L24">        return tid;</span>
+    }
+
+    public void setTid(int tid) {
+<span class="nc" id="L28">        this.tid = tid;</span>
+<span class="nc" id="L29">    }</span>
+
+    public String gettName() {
+<span class="nc" id="L32">        return tName;</span>
+    }
+
+    public void settName(String tName) {
+<span class="nc" id="L36">        this.tName = tName;</span>
+<span class="nc" id="L37">    }</span>
+
+    public int getCid() {
+<span class="nc" id="L40">        return cid;</span>
+    }
+
+    public void setCid(int cid) {
+<span class="nc" id="L44">        this.cid = cid;</span>
+<span class="nc" id="L45">    }</span>
+
+    public int getPid() {
+<span class="nc" id="L48">        return pid;</span>
+    }
+
+    public void setPid(int pid) {
+<span class="nc" id="L52">        this.pid = pid;</span>
+<span class="nc" id="L53">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L57">        return &quot;ParkingTicket{&quot; +</span>
+                &quot;tid=&quot; + tid +
+                &quot;, tName='&quot; + tName + '\'' +
+                &quot;, cid=&quot; + cid +
+                &quot;, pid=&quot; + pid +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
