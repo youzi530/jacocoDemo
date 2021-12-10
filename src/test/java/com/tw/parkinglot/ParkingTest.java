@@ -5,7 +5,7 @@ import com.tw.pojo.ParkingLot;
 import com.tw.pojo.ParkingTicket;
 import com.tw.pojo.User;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

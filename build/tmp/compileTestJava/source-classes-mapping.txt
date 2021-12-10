@@ -1,8 +1,0 @@
-com/tw/smartparkingboy/ParkingTest.java
- com.tw.smartparkingboy.ParkingTest
-com/tw/graduateparkingboy/ParkingTest.java
- com.tw.graduateparkingboy.ParkingTest
-com/tw/superParkingBoy/ParkingTest.java
- com.tw.superParkingBoy.ParkingTest
-com/tw/parkinglot/ParkingTest.java
- com.tw.parkinglot.ParkingTest
