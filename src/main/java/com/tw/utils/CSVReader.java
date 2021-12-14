@@ -8,7 +8,8 @@ import java.util.Properties;
 
 public class CSVReader {
 
-    public double getCoverage() {
+    public static double getCoverage() {
+        System.out.println("start reading csv file...");
         String csvFile = "build/reports/coverage/unit/jacowcowTestReport.csv";
         BufferedReader br = null;
         String line = "";
@@ -43,13 +44,14 @@ public class CSVReader {
         return coverage;
     }
 
-    public void setCoverage(double coverage) throws IOException {
+    public static void setCoverage(double coverage) throws IOException {
         Properties properties = new Properties();
         properties.setProperty("minimum", String.valueOf(coverage));
         properties.store(new FileOutputStream("build.gradle"), "");
     }
 
-    public String getOriginCoverage() {
+    public static String getOriginCoverage() {
+        System.out.println("start getting origin coverage...");
         String f = "build.gradle";
         Properties props = new Properties();
         try {
@@ -65,6 +67,7 @@ public class CSVReader {
     //FileWriter 不允许你指定编码，使用 OutputStreamWriter 包装一个 FileOutputStream
     //并设置编码
     private static void writeFile(String filePath, String content) {
+        System.out.println("start writting file...");
         BufferedWriter bufferedWriter = null;
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
@@ -87,6 +90,7 @@ public class CSVReader {
 
     //把文件内容找到并修改
     private static String readFileContent(String filePath, HashMap<String, String> hashMap) {
+        System.out.println("start reading file content...");
         StringBuilder result = new StringBuilder();
         BufferedReader bufferedReader = null;
         try {
@@ -121,8 +125,8 @@ public class CSVReader {
     }
 
     public static void main(String[] args) throws IOException {
-        double coverage = new CSVReader().getCoverage(); //得到新的覆盖率
-        String originCoverage = new CSVReader().getOriginCoverage(); //得到配置文件中原来的覆盖率
+        double coverage = getCoverage(); //得到新的覆盖率
+        String originCoverage = getOriginCoverage(); //得到配置文件中原来的覆盖率
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(originCoverage, String.valueOf(coverage));
 
